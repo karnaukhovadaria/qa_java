@@ -1,25 +1,53 @@
 package com.example;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class LionParameterizedTest {
+class LionTest {
+
     @Mock
     private Feline feline;
-    @ParameterizedTest
-    @CsvSource({
-            "Самец, true",
-            "Самка, false"
-    })
-    void haveMane(String sex, boolean hasMane) throws Exception{
-        Lion lion = new Lion(sex, feline);
-        assertEquals(hasMane, lion.doesHaveMane());
+
+    @Test
+    void getKittens_ShouldCallFelineGetKittens() throws Exception {
+        Lion lion = new Lion("Самец", feline);
+        when(feline.getKittens()).thenReturn(3);
+
+        int result = lion.getKittens();
+
+        assertEquals(3, result);
+        verify(feline, times(1)).getKittens();
+    }
+
+    @Test
+    void doesHaveMane_Male_ShouldReturnTrue() throws Exception {
+        Lion lion = new Lion("Самец", feline);
+        assertTrue(lion.doesHaveMane());
+    }
+
+    @Test
+    void doesHaveMane_Female_ShouldReturnFalse() throws Exception {
+        Lion lion = new Lion("Самка", feline);
+        assertFalse(lion.doesHaveMane());
+    }
+
+    @Test
+    void getFood_ShouldCallFelineGetFoodWithPredator() throws Exception {
+        Lion lion = new Lion("Самец", feline);
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
+        when(feline.getFood("Хищник")).thenReturn(expectedFood);
+
+        List<String> actualFood = lion.getFood();
+
+        assertEquals(expectedFood, actualFood);
+        verify(feline, times(1)).getFood("Хищник");
     }
 }
-
