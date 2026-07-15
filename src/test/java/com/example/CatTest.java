@@ -23,6 +23,7 @@ public class CatTest {
     void setUp() {
         cat = new Cat(felineMock);
     }
+
     @Test
     void testGetFoodMockedFeline() throws Exception {
         List<String> mockFood = Arrays.asList("Мясо", "Рыба", "Птица");

@@ -19,6 +19,7 @@ class LionParameterizedTest {
             "Самец, true",
             "Самка, false"
     })
+
     void haveMane_ShouldReturnCorrectValue(String sex, boolean hasMane) throws Exception {
         Lion lion = new Lion(sex, feline);
         assertEquals(hasMane, lion.doesHaveMane());
