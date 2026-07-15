@@ -16,6 +16,7 @@ class FelineTest {
     void getFamilyTest() {
         assertEquals(1, new Feline().getKittens());
     }
+
     @Test
     void getKittensParameterTest() {
         Feline feline = new Feline();

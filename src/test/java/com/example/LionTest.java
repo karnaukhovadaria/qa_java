@@ -44,9 +44,7 @@ class LionTest {
         Lion lion = new Lion("Самец", feline);
         List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
         when(feline.getFood("Хищник")).thenReturn(expectedFood);
-
         List<String> actualFood = lion.getFood();
-
         assertEquals(expectedFood, actualFood);
         verify(feline, times(1)).getFood("Хищник");
     }
